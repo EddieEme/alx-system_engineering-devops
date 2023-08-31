@@ -1,2 +1,2 @@
 #!/bin/bash
-find -user guillaume -name "hello" -exec chown betty
+[$(whoami)="guillaume"] then chown betty hello fi
