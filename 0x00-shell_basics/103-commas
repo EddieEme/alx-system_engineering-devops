@@ -1,3 +1,2 @@
 #!/bin/bash
 ls -dap ./* | sed ':a;N;$!ba;s/\n/, /g'
-
