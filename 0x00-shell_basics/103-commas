@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -Ap1 | sort -df | tr '\n' ', ' | sed 's/,$/\n/'
+ls -map
