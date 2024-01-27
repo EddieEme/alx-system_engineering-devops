@@ -2,13 +2,16 @@
 #script that displays Best School 10 times
 #but for the 9th iteration, displays Best School and then Hi on a new line.
 
-a=0
-while [ $a -lt 10 ]; do
-    if [ $a -eq 9 ]; then
-        echo "Hi"
-        echo "Best school"
-    else
-        echo "Best School"
-    fi
-   a=$((a + 1))
-done 
+a=1
+
+while [ $a -le 10 ]
+do
+  echo "Best School"
+
+  if [ $a -eq 9 ]
+  then
+    echo "Hi"
+  fi
+
+  a=$((a+1))
+done
