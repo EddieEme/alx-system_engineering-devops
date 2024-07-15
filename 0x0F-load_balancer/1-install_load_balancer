@@ -1,16 +1,23 @@
 #!/usr/bin/env bash
 # Installs and configures HAProxy
 
+# Update package list and install HAProxy
 sudo apt-get -y update
 sudo apt-get -y install haproxy
 
+# Backup the original HAProxy configuration
 sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original
 
-str1="\nfrontend front_lb\n\tbind *:80\n\tmode http\n\tdefault_backend back_lb\n\n"
-str2="backend back_lb\n\tbalance roundrobin\n\tserver 168185-web-01 54.174.243.43 check\n\tserver 168185-web-02 100.25.14.151 check"
+# HAProxy configuration strings
+frontend_config="\nfrontend front_lb\n\tbind *:80\n\tmode http\n\tdefault_backend back_lb\n\n"
+backend_config="backend back_lb\n\tbalance roundrobin\n\tserver 529416-web-01 3.94.211.7:80 check\n\tserver 529416-web-02 54.159.0.78:80 check"
 
-echo -e "$str1$str2" | sudo tee -a /etc/haproxy/haproxy.cfg
+# Append the new configuration to haproxy.cfg
+echo -e "$frontend_config$backend_config" | sudo tee -a /etc/haproxy/haproxy.cfg
 
+# Enable HAProxy to start on boot
 echo -e "\nENABLED=1" | sudo tee -a /etc/default/haproxy
 
-sudo service haproxy start
+# Restart HAProxy service to apply changes
+sudo service haproxy restart
+
