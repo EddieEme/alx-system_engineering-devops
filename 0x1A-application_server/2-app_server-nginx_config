@@ -1,0 +1,24 @@
+# /etc/nginx/sites-available/2-app_server-nginx_config
+
+# Define the upstream server (your Flask app)
+upstream app_server {
+    server 127.0.0.1:5000;
+}
+
+# Configure the virtual host
+server {
+    listen 80;
+    server_name 54.84.235.194;
+
+    location /airbnb-onepage/ {
+        proxy_pass http://app_server/airbnb-onepage/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location / {
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+    }
+}
